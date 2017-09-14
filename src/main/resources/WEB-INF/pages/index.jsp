@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>Prog.kiev.ua</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   </head>
   <body>
      <div align="center">
@@ -16,7 +17,7 @@
             <input type="submit" />
         </form>
 
-         <%--<button type="button" id="delete_photo">Delete</button>--%>
+         <button type="button" id="delete_photo">Delete</button>
 
          <table class="table table-striped">
          <thead>
@@ -29,26 +30,27 @@
          </thead>
          <c:forEach items="${photos_id}" var="photo_id">
              <tr>
-                 <td align="center"><input type="checkbox" name="toDelete[]" value="${photo_id}" id="checkbox_${photo_id}"/></td>
-                 <td align="center"><a href="/view/${photo_id}" >${photo_id}</a></td>
+                 <td><input type="checkbox" name="toDelete[]" value="${photo_id}" id="checkbox_${photo_id}"/></td>
+                 <td><a href="/view/${photo_id}" >${photo_id}</a></td>
                  <td><a href="/photo/${photo_id}"><img src="/photo/${photo_id}" height="40"></a></td>
              </tr>
          </c:forEach>
-     </table
+     </table>
+     </div>
+     <script>
+         $('#add_photo').click(function(){
+             window.location.href='/app';
+         });
 
-         <button type="button" id="delete_photo">Delete</button>
-
-         <script >
-             $('#delete_photo').click(function(){
+         $('#delete_photo').click(function(){
              var data = { 'toDelete[]' : []};
              $(":checked").each(function() {
                  data['toDelete[]'].push($(this).val());
              });
-             $.post("/delete", data, function(data, status) {
+             $.post("/photo/delete", data, function(data, status) {
                  window.location.reload();
              });
          });
-         </script>
-     </div>
+     </script>
   </body>
 </html>

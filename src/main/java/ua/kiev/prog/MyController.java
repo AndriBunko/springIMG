@@ -66,18 +66,18 @@ public class MyController {
             throw new PhotoNotFoundException();
         else
             model.addAttribute("photos_id", photos.keySet());
-            return "index";
+        return "index";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ResponseEntity<byte []> delete(@RequestParam(value = "toDelete[]", required = false) long[] toDelete) {
+    @RequestMapping(value = "/photo/delete", method = RequestMethod.POST)
+    public ResponseEntity<Void> onDeleteAll(@RequestParam(value = "toDelete[]", required = false) long[] toDelete) {
         if (toDelete != null && toDelete.length > 0) {
-            for (long id : toDelete) {
+            for (long id : toDelete)
                 photos.remove(id);
-            }
         }
-        return new ResponseEntity<byte[]>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
 
     private ResponseEntity<byte[]> photoById(long id) {
