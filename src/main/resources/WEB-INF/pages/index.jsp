@@ -38,9 +38,6 @@
      </table>
      </div>
      <script>
-         $('#add_photo').click(function(){
-             window.location.href='/app';
-         });
 
          $('#delete_photo').click(function(){
              var data = { 'toDelete[]' : []};
